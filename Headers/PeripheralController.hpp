@@ -10,8 +10,61 @@
 #include "MacroDefinition.hpp"
 #include <freertos/event_groups.h>
 
+bool clkPol = false;
 EventGroupHandle_t periphearalEventGroupPtr;
 extern EventGroupHandle_t periphearalEventGroupPtr;
+
+uint8_t adcSpiRead(){
+    uint8_t retVal = 0;
+    for(int i = 0; i < 16; i++){
+        if(clkPol == false){
+            clkPol = true;
+            gpio_set_level(ADC_SCLK_PIN, 1);
+            retVal = retVal | (gpio_get_level(ADC_DOUT_PIN) << (uint8_t)(i / 2));
+        } else {
+            gpio_set_level(ADC_SCLK_PIN, 0);
+        }
+    }
+    return retVal;
+}
+
+void adcSpiWrite(uint8_t data){
+    for(int i = 0; i < 16; i++){
+        if(clkPol == false){
+            clkPol = true;
+            gpio_set_level(ADC_SCLK_PIN, 1);
+            gpio_set_level(ADC_DIN_PIN, (data & 1 << (uint8_t)(i/2)) ? 1 : 0);
+        } else {
+            clkPol = false;
+            gpio_set_level(ADC_SCLK_PIN, 0);
+        }
+    }
+}
+
+void adcCommandReset(void){
+    adcSpiWrite(0x06);
+}
+
+void adcCommandStartConversion(void){
+    adcSpiWrite(0x08);
+}
+
+void adcCommandPowerDown(void){
+    adcSpiWrite(0x02);
+}
+
+void adcCommandReadData(void){
+    adcSpiWrite(0x10);
+}
+
+void adcWriteRegister(uint8_t registerAddress, uint8_t registerValue){
+    if (registerAddress < 0x03){
+        uint8_t writeValue = (registerAddress & 0x03) << 2;
+        writeValue = 0x40 | writeValue;
+        adcSpiWrite(writeValue);
+        adcSpiWrite(registerValue);
+    }
+}
 
 static void periphearalInitialize(){
     gpio_config_t ioConfig;
@@ -32,6 +85,13 @@ static void periphearalInitialize(){
     (1ULL << ADC_DRDY_PIN) |
     (1ULL << ADC_DOUT_PIN);
     gpio_config(&ioConfig);
+    gpio_set_level(ADC_CS_PIN, 0);
+    gpio_set_level(ADC_DIN_PIN, 0);
+    gpio_set_level(ADC_SCLK_PIN, 0);
+    gpio_set_level(MUX_A_PIN, 0);
+    gpio_set_level(MUX_B_PIN, 1);
 }
+
+static void taskAdcRead(void* pvParameters){}
 
 #endif
