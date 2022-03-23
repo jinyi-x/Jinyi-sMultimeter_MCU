@@ -16,7 +16,6 @@
 
 #define bitConnected    BIT0
 #define bitESPTouchDone BIT1
-#define deviceTag       "Jinyi's Multimeter"
 static EventGroupHandle_t WiFiEventGroupPtr;
 
 static void taskSmartconfig(void* pvParameters);
