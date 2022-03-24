@@ -13,6 +13,7 @@
 #include <smartconfig_ack.h>
 #include <freertos/FreeRTOS.h>
 #include <freertos/event_groups.h>
+#include <PeripheralController.hpp>
 
 #define bitConnected    BIT0
 #define bitESPTouchDone BIT1

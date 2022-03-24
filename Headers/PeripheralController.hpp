@@ -76,8 +76,8 @@ static void periphearalInitialize(){
     (1ULL << ADC_CS_PIN)  |
     (1ULL << ADC_DIN_PIN) |
     (1ULL << ADC_SCLK_PIN);
-    ioConfig.pull_down_en = 0;
-    ioConfig.pull_up_en = 0;
+    ioConfig.pull_down_en = GPIO_PULLDOWN_DISABLE;
+    ioConfig.pull_up_en = GPIO_PULLUP_DISABLE;
     gpio_config(&ioConfig);
     // Initialize Output GPIO
     ioConfig.mode = GPIO_MODE_INPUT;
@@ -90,8 +90,13 @@ static void periphearalInitialize(){
     gpio_set_level(ADC_SCLK_PIN, 0);
     gpio_set_level(MUX_A_PIN, 0);
     gpio_set_level(MUX_B_PIN, 1);
+    // Initialize All GPIO And Output GPIO Default Level
+    adcCommandReset();
+    os_delay_us(500);
 }
 
-static void taskAdcRead(void* pvParameters){}
+static void taskAdcRead(void* pvParameters){
+
+}
 
 #endif
