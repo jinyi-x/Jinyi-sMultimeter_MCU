@@ -17,8 +17,9 @@
 
 #define bitConnected    BIT0
 #define bitESPTouchDone BIT1
-static EventGroupHandle_t WiFiEventGroupPtr;
 
+static EventGroupHandle_t WiFiEventGroupPtr;
+extern EventGroupHandle_t WiFiEventGroupPtr;
 static void taskSmartconfig(void* pvParameters);
 static void EventHandler(void *arg, esp_event_base_t eventBase, int32_t eventID, void* eventData){
     if(eventBase == WIFI_EVENT && eventID == WIFI_EVENT_STA_START){

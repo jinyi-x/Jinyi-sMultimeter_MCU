@@ -17,7 +17,7 @@
 
 
 bool clkPol = false;
-EventGroupHandle_t periphearalEventGroupPtr;
+static EventGroupHandle_t periphearalEventGroupPtr;
 extern EventGroupHandle_t periphearalEventGroupPtr;
 
 uint8_t adcSpiRead(){
