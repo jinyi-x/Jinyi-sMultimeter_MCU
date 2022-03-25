@@ -12,7 +12,9 @@
 #define MUX_A_PIN       GPIO_NUM_4
 #define MUX_B_PIN       GPIO_NUM_5
 // GPIO Configuration
-
+#define ServerTransferPort  8889
+#define ServerSniffPort     8890
+// Port Configuration
 #define ADC_MUX_0_1_MASK    0x00
 #define ADC_MUX_0_2_MASK    0x10
 #define ADC_MUX_0_3_MASK    0x20
