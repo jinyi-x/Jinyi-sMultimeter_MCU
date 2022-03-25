@@ -97,12 +97,12 @@ static void taskAdcRead(void* pvParameters){
         adcVal = adcVal | adcSpiRead();
         rangeFlag = 3;
         double adcVoltage = adcVal * 2048 / 65535;  // Voltage(mV) Of Adc Analog Port
-        if(adcVoltage < 1500 & adcVoltage > 1200){
+        if(adcVoltage < 1500 && adcVoltage > 1200){
             //Range 2V - 5V
             rangeFlag = 2;
             gpio_set_level(MUX_A_PIN, 1);
             gpio_set_level(MUX_B_PIN, 0);
-        } else if (adcVoltage < 1200 & adcVoltage > 1020){
+        } else if (adcVoltage < 1200 && adcVoltage > 1020){
             rangeFlag = 1;
             // Range 0.2V - 2V
             gpio_set_level(MUX_A_PIN, 0);
@@ -172,27 +172,27 @@ static void taskAdcRead(void* pvParameters){
             default:
                 break;
         }
-        if(resistanceVal > 4e4 & CurrentMask != ADC_IDAC_CURRENT_50_MASK){
+        if(resistanceVal > 4e4 && CurrentMask != ADC_IDAC_CURRENT_50_MASK){
             CurrentMask = ADC_IDAC_CURRENT_50_MASK;
             goto resMeasure;
         }
-        if(resistanceVal < 4e4 & resistanceVal > 2e4 & CurrentMask != ADC_IDAC_CURRENT_100_MASK){
+        if(resistanceVal < 4e4 && resistanceVal > 2e4 && CurrentMask != ADC_IDAC_CURRENT_100_MASK){
             CurrentMask = ADC_IDAC_CURRENT_100_MASK;
             goto resMeasure;
         }
-        if(resistanceVal < 2e4 & resistanceVal > 8e3 & CurrentMask != ADC_IDAC_CURRENT_250_MASK){
+        if(resistanceVal < 2e4 && resistanceVal > 8e3 && CurrentMask != ADC_IDAC_CURRENT_250_MASK){
             CurrentMask = ADC_IDAC_CURRENT_250_MASK;
             goto resMeasure;
         }
-        if(resistanceVal < 8e3 & resistanceVal > 4e3 & CurrentMask != ADC_IDAC_CURRENT_500_MASK){
+        if(resistanceVal < 8e3 && resistanceVal > 4e3 && CurrentMask != ADC_IDAC_CURRENT_500_MASK){
             CurrentMask = ADC_IDAC_CURRENT_500_MASK;
             goto resMeasure;
         }
-        if(resistanceVal < 4e3 & resistanceVal > 2e3 & CurrentMask != ADC_IDAC_CURRENT_1000_MASK){
+        if(resistanceVal < 4e3 && resistanceVal > 2e3 && CurrentMask != ADC_IDAC_CURRENT_1000_MASK){
             CurrentMask = ADC_IDAC_CURRENT_1000_MASK;
             goto resMeasure;
         }
-        if(resistanceVal < 2e3 & CurrentMask != ADC_IDAC_CURRENT_1500_MASK){
+        if(resistanceVal < 2e3 && CurrentMask != ADC_IDAC_CURRENT_1500_MASK){
             CurrentMask = ADC_IDAC_CURRENT_1500_MASK;
             goto resMeasure;
         }
