@@ -175,20 +175,22 @@ static void taskTransfer(void* pvParameters){
                     }
                 }
             }
-            EventBits_t measureBits = xEventGroupGetBits(WiFiEventGroupPtr);
-            if(measureBits & bitTransferVoltage){
+            uxBits = xEventGroupGetBits(WiFiEventGroupPtr);
+            if(uxBits & bitTransferVoltage){
                 cJSON* RetRootNodePtr = cJSON_CreateObject();
                 cJSON_AddStringToObject(RetRootNodePtr, "Op", "ReturnVoltage");
                 cJSON* PayloadObjectPtr = cJSON_CreateObject();
                 cJSON_AddNumberToObject(PayloadObjectPtr, "Voltage", voltage);
                 cJSON_AddStringToObject(RetRootNodePtr, "Payload", cJSON_Print(PayloadObjectPtr));
+                xEventGroupClearBits(WiFiEventGroupPtr, bitTransferVoltage);
             }
-            if(measureBits & bitTransferResistance){
+            if(uxBits & bitTransferResistance){
                 cJSON* RetRootNodePtr = cJSON_CreateObject();
                 cJSON_AddStringToObject(RetRootNodePtr, "Op", "ReturnResistance");
                 cJSON* PayloadObjectPtr = cJSON_CreateObject();
                 cJSON_AddNumberToObject(PayloadObjectPtr, "Resistance", resistance);
                 cJSON_AddStringToObject(RetRootNodePtr, "Payload", cJSON_Print(PayloadObjectPtr));
+                xEventGroupClearBits(WiFiEventGroupPtr, bitTransferResistance);
             }
         }
         if(sock != -1){

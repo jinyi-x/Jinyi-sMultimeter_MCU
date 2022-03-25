@@ -139,7 +139,7 @@ static void taskAdcRead(void* pvParameters){
     if(uxBits & resistorMeasureBit){
         uint8_t CurrentMask = ADC_IDAC_CURRENT_50_MASK;
         uint16_t adcVal;
-        double resistanceVal;
+        double resistanceVal = 0.00;
         adcWriteRegister(0x00, ADC_MUX_2_3_MASK | ADC_PGA_GAIN_1_MASK | ADC_PGA_DISABLE_MASK);
         adcWriteRegister(0x01, ADC_NORMAL_MODE_SAMPLE_RATE_20_MASK | ADC_MODE_NORMAL_MASK | ADC_SINGLE_SHOT_MODE_MASK | ADC_TEMPERATURE_SENSOR_ON_MASK | ADC_BURN_OUT_CURRENT_SOURCE_OFF_MASK);
         adcWriteRegister(0x03, ADC_IDAC1_MUX_AIN2_MASK | ADC_IDAC2_MUX_NC_MASK | ADC_DRDY_MODE_DRDY_ONLY);
