@@ -15,3 +15,11 @@ Warning: PCB repo and software repo are private yet, cause I've not done its doc
  cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1
  make -j
 ```
+
+note: -DCMAKE_EXPORT_COMPILE_COMMANDS let cmake generate compile db for some language server. If you don't need, just delete it
+
+## Project Structure
+    1. MacroDefinition: Configuration And ADC Register Mask
+    2. Network.hpp: Smartconfig And Network
+    3. PeripheralController: ADC And MUX Driver
+    4. main.cpp: Main Task
