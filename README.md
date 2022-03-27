@@ -23,3 +23,5 @@ note: -DCMAKE_EXPORT_COMPILE_COMMANDS let cmake generate compile db for some lan
     2. Network.hpp: Smartconfig And Network
     3. PeripheralController: ADC And MUX Driver
     4. main.cpp: Main Task
+
+# Notice: This Version Currently Not Usable.It MAY Cause CERTAIN HARDWARE VERSION ESP8266 Reboot
