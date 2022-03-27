@@ -23,3 +23,5 @@ make -j
     2. Network.hpp: Smartconfig与网络通信相关
     3. PeripheralController.hpp: ADC与MUX驱动
     4. main.cpp: 主程序
+
+# 注意：该软件版本仍有极其严重的BUG，在某些特定硬件版本上将导致ESP8266无限重启
