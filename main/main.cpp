@@ -1,6 +1,7 @@
 #include <nvs_flash.h>
 #include "Network.hpp"
 #include "PeripheralController.hpp"
+#include <esp8266/pin_mux_register.h>
 
 static void taskMain(void* pvParameters){
     initializeWifi();
@@ -25,4 +26,5 @@ static void taskMain(void* pvParameters){
 extern "C" void app_main() {
     ESP_ERROR_CHECK(nvs_flash_init());
     xTaskCreate(taskMain, "main", 1024, NULL, 1, NULL);
+    PIN_FUNC_SELECT(PERIPHS_IO_MUX_MTDO_U, FUNC_GPIO15);
 }
